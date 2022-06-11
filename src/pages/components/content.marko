@@ -1,0 +1,67 @@
+import seedData from "../../seed.json";
+
+class {
+  onCreate() {
+    this.state = {viewItems: false};
+  }
+  onViewItems() {
+    this.state.viewItems = !this.state.viewItems;
+  }
+}
+
+style {
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    color: #1D1D1B;
+    min-height: 100vh;
+    width: 100%;
+    text-align: center;
+    font-family: 'League Gothic', sans-serif;
+  }
+  img.logo {
+  max-width: 350px;
+  margin: 10px;
+  }
+  .btn:hover {
+    background-color: rgb(171, 44, 16, 0.9);
+    color: rgb(253, 242, 223)
+  }
+  .card-title {
+    font-size: 25px;
+    border: 2px solid black;
+    border-radius: 7px;
+    padding: 7px;
+  }
+  .card-text {
+    font-size: 45px;
+    align-self: center;
+    color: #AB2C10
+  }
+}
+
+<div class="container">
+  <header>
+    <img.logo src="../../assets/pub.png" alt="pubLogo"/>
+  </header>
+  <main class="col-12">
+    <div class="w-100 row d-flex flex-row justify-content-evenly align-items-center">
+      <gross-sales />
+      <net-sales />
+    </div>
+    <div class="w-100 row d-flex flex-row justify-content-evenly align-items-center">
+      <auto-grat />
+      <taxes />
+      <tips />
+    </div>      
+    <if(state.viewItems)>
+      <item-breakdown /> 
+    </if>
+    <else>
+      <button on-click("onViewItems") class="col-md-3 col-12 btn btn-outline-dark m-3">View Your Sales Breakdown</button>
+    </else>
+  </main>
+</div>

@@ -1,0 +1,22 @@
+import seedData from "../../../seed.json"
+import getDollarAmount from "../../../utils/helpers.js"
+
+class {
+  onCreate() {
+    let grossSales = 0;
+    let tips = 0;
+    seedData.tabs.forEach(el => {
+      grossSales += el.total
+      tips += el.tip
+    })
+    const netSales = grossSales - tips;
+    return `${getDollarAmount(netSales)}`
+  }
+}
+
+<div class="col-12 col-md-6 m-5" style="width: 22rem;">
+  <div class="card-body">
+    <h5 class="card-title">Net Sales</h5>
+    <p class="card-text">${component.onCreate()}</p>
+  </div>
+</div>

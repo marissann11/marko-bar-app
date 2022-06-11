@@ -1,0 +1,19 @@
+import seedData from "../../../seed.json"
+import getDollarAmount from "../../../utils/helpers.js"
+
+class {
+  onCreate() {
+    let tips = 0;
+    seedData.tabs.forEach(el => {
+      tips += el.tip
+    })
+    return `${getDollarAmount(tips)}`
+  }
+}
+
+<div class="col-12 col-md-3" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Total Tips</h5>
+    <p class="card-text">${component.onCreate()}</p>
+  </div>
+</div>

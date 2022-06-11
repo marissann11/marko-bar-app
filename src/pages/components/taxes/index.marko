@@ -1,0 +1,19 @@
+import seedData from "../../../seed.json"
+import getDollarAmount from "../../../utils/helpers.js"
+
+class {
+  onCreate() {
+    let taxes = 0;
+    seedData.tabs.forEach(el => {
+      taxes += el.tax
+    })
+    return `${getDollarAmount(taxes)}`
+  }
+}
+
+<div class="col-12 col-md-3" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Total Taxes</h5>
+    <p class="card-text">${component.onCreate()}</p>
+  </div>
+</div>

@@ -1,0 +1,32 @@
+import seedData from "../../../seed.json";
+
+<div class="w-100 row d-flex flex-row justify-content-evenly align-items-center">
+    $ {
+        const itemsArr = []
+        const items = seedData.tabs.map(el => {
+        itemsArr.push(el.items)
+        })
+        let allItems = itemsArr.reduce((acc, it) => [...acc, ...it], [])
+        const nameCounts = allItems.reduce((acc, it) => {
+            acc[it.name] = acc[it.name] + 1 || 1;
+            return acc
+        }, {} );
+        const values = Object.values(nameCounts);
+        const keys = Object.keys(nameCounts);
+        const newArray = keys.map((e, i) => [e,values[i]]);
+    }
+    <table class="table table-bordered col-12">
+        <thead>
+            <tr>
+                <th scope="col">Item</th>
+                <th scope="col">Quantity</th>
+            </tr>
+        </thead>
+         <for|value, index, newArrayList| of=newArray>
+            <tr>
+                <td key=index>${value[0]}</td>
+                <td>${value[1]}</td>
+            </tr>
+        </for>
+    </table>
+</div>
