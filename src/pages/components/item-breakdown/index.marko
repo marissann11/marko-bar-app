@@ -14,12 +14,10 @@ style {
         itemsArr.push(el.items)
         })
         let allItems = itemsArr.reduce((acc, it) => [...acc, ...it], [])
-        console.log(allItems)
         const nameCounts = allItems.reduce((acc, it) => {
             acc[it.name] = acc[it.name] + 1 || 1;
             return acc
         }, {} );
-        console.log(nameCounts)
         const values = Object.values(nameCounts);
         const keys = Object.keys(nameCounts);
         const newArray = keys.map((e, i) => [e,values[i]]);
