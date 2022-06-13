@@ -1,4 +1,11 @@
 import seedData from "../../../seed.json";
+import getDollarAmount from "../../../utils/helpers.js"
+
+style {
+    .good {
+        background-color: rgb(0, 204, 0, 0.5)
+    }
+}
 
 <div class="w-100 row d-flex flex-row justify-content-evenly align-items-center">
     $ {
@@ -7,10 +14,12 @@ import seedData from "../../../seed.json";
         itemsArr.push(el.items)
         })
         let allItems = itemsArr.reduce((acc, it) => [...acc, ...it], [])
+        console.log(allItems)
         const nameCounts = allItems.reduce((acc, it) => {
             acc[it.name] = acc[it.name] + 1 || 1;
             return acc
         }, {} );
+        console.log(nameCounts)
         const values = Object.values(nameCounts);
         const keys = Object.keys(nameCounts);
         const newArray = keys.map((e, i) => [e,values[i]]);
@@ -20,12 +29,14 @@ import seedData from "../../../seed.json";
             <tr>
                 <th scope="col">Item</th>
                 <th scope="col">Quantity</th>
+                <th scope="col">Revenue</th>
             </tr>
         </thead>
          <for|value, index, newArrayList| of=newArray>
             <tr>
                 <td key=index>${value[0]}</td>
                 <td>${value[1]}</td>
+                <td class =`${value[1] > 5 ? 'good' : ''}`>${getDollarAmount(allItems[index].price * value[1])}</td>
             </tr>
         </for>
     </table>
