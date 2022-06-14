@@ -2,26 +2,30 @@ import seedData from "../../../seed.json";
 import getDollarAmount from "../../../utils/helpers.js"
 
 style {
-    .good {
+    .popular {
         background-color: rgb(0, 204, 0, 0.5)
     }
 }
 
 <div class="w-100 row d-flex flex-row justify-content-evenly align-items-center">
     $ {
-        const itemsArr = []
-        const items = seedData.tabs.map(el => {
-        itemsArr.push(el.items)
-        })
-        let allItems = itemsArr.reduce((acc, it) => [...acc, ...it], [])
-        const nameCounts = allItems.reduce((acc, it) => {
-            acc[it.name] = acc[it.name] + 1 || 1;
-            return acc
-        }, {} );
-        const values = Object.values(nameCounts);
-        const keys = Object.keys(nameCounts);
-        const newArray = keys.map((e, i) => [e,values[i]]);
+        const { tabs } = seedData;
+        const receipts = tabs?.reduce((total, current) => {
+          current.items.forEach((item) => {
+            const index = total.findIndex((obj) => {
+                return obj.name === item.name;
+            });
+            if (index === -1) {
+              item.quantity = 1;
+              total.push(item);
+            } else {
+               total[index].quantity += 1;
+            }
+          });
+          return total;
+        }, []);
     }
+
     <table class="table table-bordered col-12">
         <thead>
             <tr>
@@ -30,11 +34,11 @@ style {
                 <th scope="col">Revenue</th>
             </tr>
         </thead>
-         <for|value, index, newArrayList| of=newArray>
+         <for|receipt| of=receipts>
             <tr>
-                <td key=index>${value[0]}</td>
-                <td>${value[1]}</td>
-                <td class =`${value[1] > 5 ? 'good' : ''}`>${getDollarAmount(allItems[index].price * value[1])}</td>
+                <td key=receipt.id>${receipt.name}</td>
+                <td>${receipt.quantity}</td>
+                <td class =`${receipt.quantity > 5 ? 'popular' : ''}`>${getDollarAmount(receipt.price * receipt.quantity)}</td>
             </tr>
         </for>
     </table>
